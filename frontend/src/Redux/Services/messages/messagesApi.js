@@ -9,6 +9,7 @@ export const messagesApi = createApi({
     endpoints: (builder) => ({
         getUsers: builder.query({
             query: () => "/messages/users",
+            method: "GET",
             providesTags: ["Users"],
         }),
         getMessages: builder.query({

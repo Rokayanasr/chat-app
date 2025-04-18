@@ -154,7 +154,7 @@ function SignupPage() {
                         </div>
 
                         {/* create account button */}
-                        <button type='submit' className='w-full bg-primary text-base-content py-2 px-4 rounded-md hover:bg-primary/90 transition-colors'>
+                        <button type='submit' className='w-full cursor-pointer active:scale-95 bg-primary text-base-content py-2 px-4 rounded-md hover:bg-primary/90 transition-colors'>
                             {isLoading ? (
                                 <div className='flex items-center justify-center gap-2'>
                                     <Loader2 className='size-4 animate-spin' />

@@ -98,7 +98,7 @@ function LoginPage() {
                             </div>
                         </div>
 
-                        <button type='submit' className='btn btn-primary w-full' disabled={isLoggingIn}>
+                        <button type='submit' className='btn btn-primary w-full cursor-pointer active:scale-95' disabled={isLoggingIn}>
                             {isLoggingIn ? (
                                 <>
                                     <Loader2 className='h-5 w-5 animate-spin' />

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { messagesApi } from "./messagesApi";
+import toast from "react-hot-toast";
 const initialState = {
     messages: [],
     users: [],
@@ -7,13 +8,17 @@ const initialState = {
     isSendingMessage: false,
     isMessagesLoading: false,
     isUsersLoading: false,
+    onlineUsers: []
 };
 
 const messagesSlice = createSlice({
     name: "messages",
     initialState,
     reducers: {
-        getUsers: (state) => {
+        setUsers: (state, action) => {
+            state.users = action.payload;
+        },
+        getUsers: (state, action) => {
             state.users = state.users;
         },
         getMessages: (state, action) => {
@@ -27,9 +32,6 @@ const messagesSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addMatcher(messagesApi.endpoints.getUsers.matchFulfilled, (state, action) => {
-            state.users = action.payload;
-        });
         builder.addMatcher(messagesApi.endpoints.getUsers.matchPending, (state, action) => {
             state.isUsersLoading = true;
         });
@@ -62,5 +64,5 @@ const messagesSlice = createSlice({
     },
 });
 
-export const { getUsers, getMessages, setSelectedUser, addMessage } = messagesSlice.actions;
+export const { setUsers, getMessages, setSelectedUser, addMessage } = messagesSlice.actions;
 export default messagesSlice.reducer;
