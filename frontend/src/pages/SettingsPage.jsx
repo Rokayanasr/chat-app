@@ -25,13 +25,11 @@ function SettingsPage() {
                     {THEMES.map((t) => (
                         <button
                             key={t}
-                            className={`
-                group flex flex-col items-center gap-1.5 p-2 rounded-lg transition-colors
-                ${theme === t ? "bg-base-300" : "hover:bg-base-200/60"}
-              `}
+                            className={` group flex flex-col items-center gap-1.5 p-2 rounded-lg transition-colors ${
+                                theme === t ? "bg-base-300" : "hover:bg-base-200/60"
+                            } `}
                             data-theme={theme}
-                            onClick={() => dispatch(setTheme(t))}
-                        >
+                            onClick={() => dispatch(setTheme(t))}>
                             <div className='relative h-8 w-full rounded-md overflow-hidden' data-theme={t}>
                                 <div className='absolute inset-0 grid grid-cols-4 gap-px p-1'>
                                     <div className='rounded bg-primary'></div>
@@ -55,7 +53,9 @@ function SettingsPage() {
                                 {/* Chat Header */}
                                 <div className='px-4 py-3 border-b border-base-300 bg-base-100'>
                                     <div className='flex items-center gap-3'>
-                                        <div className='w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-content font-medium'>J</div>
+                                        <div className='w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-content font-medium'>
+                                            J
+                                        </div>
                                         <div>
                                             <h3 className='font-medium text-sm'>John Doe</h3>
                                             <p className='text-xs text-base-content/70'>Online</p>
@@ -68,18 +68,14 @@ function SettingsPage() {
                                     {PREVIEW_MESSAGES.map((message) => (
                                         <div key={message.id} className={`flex ${message.isSent ? "justify-end" : "justify-start"}`}>
                                             <div
-                                                className={`
-                          max-w-[80%] rounded-xl p-3 shadow-sm
-                          ${message.isSent ? "bg-primary text-primary-content" : "bg-base-200"}
-                        `}
-                                            >
+                                                className={`max-w-[80%] rounded-xl p-3 shadow-sm ${
+                                                    message.isSent ? "bg-primary text-primary-content" : "bg-base-200" }`}>
                                                 <p className='text-sm'>{message.content}</p>
                                                 <p
                                                     className={`
                             text-[10px] mt-1.5
                             ${message.isSent ? "text-primary-content/70" : "text-base-content/70"}
-                          `}
-                                                >
+                          `}>
                                                     12:00 PM
                                                 </p>
                                             </div>

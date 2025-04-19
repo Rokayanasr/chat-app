@@ -46,10 +46,7 @@ function LoginPage() {
                     {/* Logo */}
                     <div className='text-center mb-8'>
                         <div className='flex flex-col items-center gap-2 group'>
-                            <div
-                                className='w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20
-            transition-colors'
-                            >
+                            <div className='w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors'>
                                 <MessageSquare className='w-6 h-6 text-primary' />
                             </div>
                             <h1 className='text-2xl font-bold mt-2'>Welcome Back</h1>
@@ -58,10 +55,14 @@ function LoginPage() {
                     </div>
 
                     {/* Form */}
-                    <form onSubmit={handleSubmit(onSubmit)} className='space-y-6'>
+                    <form
+                        onSubmit={handleSubmit(onSubmit)}
+                        className='space-y-6'>
                         <div className='form-control space-y-2'>
                             <label className='label'>
-                                <span className='label-text font-medium text-base-content'>Email</span>
+                                <span className='label-text font-medium text-base-content'>
+                                    Email
+                                </span>
                             </label>
                             <div className='relative'>
                                 <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
@@ -71,15 +72,22 @@ function LoginPage() {
                                     type='email'
                                     className={`input input-bordered focus:bg-base-200 focus:border-primary focus:outline-none active:bg-base-200 w-full pl-10`}
                                     placeholder='you@example.com'
-                                    {...register("email", { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ })}
+                                    {...register("email", {
+                                        required: true,
+                                        pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                    })}
                                 />
-                                {errors.email && <p className='text-red-500 text-sm'>{errors.email.message}</p>}
+                                {errors.email && (
+                                    <p className='text-red-500 text-sm'>{errors.email.message}</p>
+                                )}
                             </div>
                         </div>
 
                         <div className='form-control space-y-2'>
                             <label className='label'>
-                                <span className='label-text font-medium text-base-content'>Password</span>
+                                <span className='label-text font-medium text-base-content'>
+                                    Password
+                                </span>
                             </label>
                             <div className='relative'>
                                 <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
@@ -89,16 +97,34 @@ function LoginPage() {
                                     type={showPassword ? "text" : "password"}
                                     className={`input input-bordered focus:bg-base-200 focus:border-primary focus:outline-none active:bg-base-200 w-full pl-10`}
                                     placeholder='••••••••'
-                                    {...register("password", { required: true, minLength: 8, maxLength: 20 })}
+                                    {...register("password", {
+                                        required: true,
+                                        minLength: 8,
+                                        maxLength: 20,
+                                    })}
                                 />
-                                <button type='button' className='absolute inset-y-0 right-0 pr-3 flex items-center' onClick={() => setShowPassword(!showPassword)}>
-                                    {showPassword ? <EyeOff className='h-5 w-5 text-base-content/40' /> : <Eye className='h-5 w-5 text-base-content/40' />}
+                                <button
+                                    type='button'
+                                    className='absolute inset-y-0 right-0 pr-3 flex items-center'
+                                    onClick={() => setShowPassword(!showPassword)}>
+                                    {showPassword ? (
+                                        <EyeOff className='h-5 w-5 text-base-content/40' />
+                                    ) : (
+                                        <Eye className='h-5 w-5 text-base-content/40' />
+                                    )}
                                 </button>
-                                {errors.password && <p className='text-red-500 text-sm'>{errors.password.message}</p>}
+                                {errors.password && (
+                                    <p className='text-red-500 text-sm'>
+                                        {errors.password.message}
+                                    </p>
+                                )}
                             </div>
                         </div>
 
-                        <button type='submit' className='btn btn-primary w-full cursor-pointer active:scale-95' disabled={isLoggingIn}>
+                        <button
+                            type='submit'
+                            className='btn btn-primary w-full cursor-pointer active:scale-95'
+                            disabled={isLoggingIn}>
                             {isLoggingIn ? (
                                 <>
                                     <Loader2 className='h-5 w-5 animate-spin' />
@@ -113,7 +139,9 @@ function LoginPage() {
                     <div className='text-center'>
                         <p className='text-base-content/60'>
                             Don&apos;t have an account?{" "}
-                            <Link to='/signup' className='link link-primary'>
+                            <Link
+                                to='/signup'
+                                className='link link-primary'>
                                 Create account
                             </Link>
                         </p>
@@ -122,7 +150,10 @@ function LoginPage() {
             </div>
 
             {/* Right Side - Image/Pattern */}
-            <AuthImagePattern title={"Welcome back!"} subtitle={"Sign in to continue your conversations and catch up with your messages."} />
+            <AuthImagePattern
+                title={"Welcome back!"}
+                subtitle={"Sign in to continue your conversations and catch up with your messages."}
+            />
         </div>
     );
 }

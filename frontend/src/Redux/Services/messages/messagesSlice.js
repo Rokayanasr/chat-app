@@ -8,7 +8,7 @@ const initialState = {
     isSendingMessage: false,
     isMessagesLoading: false,
     isUsersLoading: false,
-    onlineUsers: []
+    onlineUsers: [],
 };
 
 const messagesSlice = createSlice({
@@ -40,7 +40,7 @@ const messagesSlice = createSlice({
             toast.error("Error fetching users");
         });
         builder.addMatcher(messagesApi.endpoints.getMessages.matchFulfilled, (state, action) => {
-            console.log('action.payload in getMessages extraReducer', action.payload);
+            console.log("action.payload in getMessages extraReducer", action.payload);
             state.messages = action.payload;
             state.isMessagesLoading = false;
         });

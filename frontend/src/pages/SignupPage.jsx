@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 function SignupPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isSigningUp } = useSelector((state) => state.auth); 
+    const { isSigningUp } = useSelector((state) => state.auth);
     const [signup, { isLoading }] = useSignupMutation();
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
@@ -24,27 +24,31 @@ function SignupPage() {
         if (!formData.fullName.trim()) return toast.error("Full name is required");
         if (!formData.email.trim()) return toast.error("Email is required");
         if (!formData.password.trim()) return toast.error("Password is required");
-        if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) return toast.error("Invalid Email Format");
+        if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email))
+            return toast.error("Invalid Email Format");
         if (!/^[A-Za-z\s]{2,}$/.test(formData.fullName)) return toast.error("Invalid Name Format");
         // if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(formData.password)) return toast.error("Invalid password Format");
-        if (formData.password.length < 8) return toast.error("Password must be at least 8 characters long");
-        if (formData.fullName.length < 2) return toast.error("Full name must be at least 2 characters long");
-        if (formData.email.length < 5) return toast.error("Email must be at least 5 characters long");
-        
+        if (formData.password.length < 8)
+            return toast.error("Password must be at least 8 characters long");
+        if (formData.fullName.length < 2)
+            return toast.error("Full name must be at least 2 characters long");
+        if (formData.email.length < 5)
+            return toast.error("Email must be at least 5 characters long");
+
         return true;
     };
-    
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const success = validateForm();
-        if(success === true) {
+        if (success === true) {
             // Format data according to backend expectations
             const formattedData = {
                 fullname: formData.fullName,
                 email: formData.email,
-                password: formData.password
+                password: formData.password,
             };
-            
+
             signup(formattedData)
                 .unwrap()
                 .then((res) => {
@@ -84,10 +88,14 @@ function SignupPage() {
                         <p className='text-base-content/60'>Get started with your free account</p>
                     </div>
 
-                    <form onSubmit={handleSubmit} className='space-y-6'>
+                    <form
+                        onSubmit={handleSubmit}
+                        className='space-y-6'>
                         {/* full name */}
                         <div className='space-y-2'>
-                            <label htmlFor='fullName' className='block text-sm font-medium text-base-content'>
+                            <label
+                                htmlFor='fullName'
+                                className='block text-sm font-medium text-base-content'>
                                 Full Name
                             </label>
                             <div className='relative'>
@@ -99,14 +107,21 @@ function SignupPage() {
                                     id='fullName'
                                     className='input input-bordered w-full pl-10'
                                     placeholder='John Doe'
-                                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            fullName: e.target.value,
+                                        })
+                                    }
                                 />
                             </div>
                         </div>
 
                         {/* email */}
                         <div className='space-y-2'>
-                            <label htmlFor='email' className='block text-sm font-medium text-base-content'>
+                            <label
+                                htmlFor='email'
+                                className='block text-sm font-medium text-base-content'>
                                 Email Address
                             </label>
                             <div className='relative'>
@@ -118,14 +133,21 @@ function SignupPage() {
                                     id='email'
                                     className='input input-bordered w-full pl-10'
                                     placeholder='your@email.com'
-                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            email: e.target.value,
+                                        })
+                                    }
                                 />
                             </div>
                         </div>
 
                         {/* password */}
                         <div className='space-y-2'>
-                            <label htmlFor='password' className='block text-sm font-medium text-base-content'>
+                            <label
+                                htmlFor='password'
+                                className='block text-sm font-medium text-base-content'>
                                 Password
                             </label>
                             <div className='relative'>
@@ -137,13 +159,17 @@ function SignupPage() {
                                     id='password'
                                     className='input input-bordered w-full pl-10'
                                     placeholder='Create a password'
-                                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            password: e.target.value,
+                                        })
+                                    }
                                 />
-                                <button 
-                                    type="button"
+                                <button
+                                    type='button'
                                     className='flex items-center gap-2 absolute right-0 top-0 inset-y-0 cursor-pointer px-2'
-                                    onClick={() => setShowPassword(!showPassword)}
-                                >
+                                    onClick={() => setShowPassword(!showPassword)}>
                                     {showPassword ? (
                                         <EyeOff className='size-5 z-10 transition-all text-base-content/40' />
                                     ) : (
@@ -154,7 +180,9 @@ function SignupPage() {
                         </div>
 
                         {/* create account button */}
-                        <button type='submit' className='w-full cursor-pointer active:scale-95 bg-primary text-base-content py-2 px-4 rounded-md hover:bg-primary/90 transition-colors'>
+                        <button
+                            type='submit'
+                            className='w-full cursor-pointer active:scale-95 bg-primary text-base-content py-2 px-4 rounded-md hover:bg-primary/90 transition-colors'>
                             {isLoading ? (
                                 <div className='flex items-center justify-center gap-2'>
                                     <Loader2 className='size-4 animate-spin' />
@@ -169,7 +197,9 @@ function SignupPage() {
                     <div className='text-center'>
                         <p className='text-sm'>
                             Already have an account?{" "}
-                            <Link to='/login' className='text-primary font-medium'>
+                            <Link
+                                to='/login'
+                                className='text-primary font-medium'>
                                 Sign in
                             </Link>
                         </p>
@@ -178,7 +208,10 @@ function SignupPage() {
             </div>
 
             {/* right side */}
-            <AuthImagePattern title='Join our community' subtitle='connect with friends, share moments and stay in touch with your loved ones' />
+            <AuthImagePattern
+                title='Join our community'
+                subtitle='connect with friends, share moments and stay in touch with your loved ones'
+            />
         </div>
     );
 }
