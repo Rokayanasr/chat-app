@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQueryWithInterceptor from "../../../utils/interceptor";
 
 export const messagesApi = createApi({
@@ -9,29 +9,24 @@ export const messagesApi = createApi({
     endpoints: (builder) => ({
         getUsers: builder.query({
             query: () => "/messages/users",
-            method: "GET",
             providesTags: ["Users"],
         }),
         getMessages: builder.query({
-            query: ({ id }) => {
-                return {
-                    url: `/messages/${id}`,
-                    method: "GET",
-                };
-            },
+            query: ({ id }) => ({
+                url: `/messages/${id}`,
+                method: "GET",
+            }),
             providesTags: ["Messages"],
         }),
-        addMessage: builder.mutation({
-            query: ({ id, message }) => {
-                return {
-                    url: `/messages/send/${id}`,
-                    method: "POST",
-                    body: message,
-                };
-            },
+        sendMessage: builder.mutation({
+            query: ({ id, message }) => ({
+                url: `/messages/send/${id}`,
+                method: "POST",
+                body: message,
+            }),
             invalidatesTags: ["Messages"],
         }),
     }),
 });
 
-export const { useGetUsersQuery, useGetMessagesQuery, useAddMessageMutation } = messagesApi;
+export const { useGetUsersQuery, useGetMessagesQuery, useSendMessageMutation } = messagesApi;

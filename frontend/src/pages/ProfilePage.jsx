@@ -8,7 +8,6 @@ function ProfilePage() {
     const { authUser } = useSelector((state) => state.auth);
     const [selectedImg, setSelectedImg] = useState(null);
     const [updateProfile, { isLoading, isFetching }] = useUpdateProfileMutation();
-    console.log(authUser);
 
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import AuthImagePattern from "../components/AuthImagePattern";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setIsLoggingIn, setAuthUser } from "../Redux/Services/auth/authSlice";
+import { setAuthUser } from "../Redux/Services/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
@@ -13,7 +13,7 @@ function LoginPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [login, { isLoading, isError, error }] = useLoginMutation();
+    const [login] = useLoginMutation();
     const isLoggingIn = useSelector((state) => state.auth.isLoggingIn);
     const [showPassword, setShowPassword] = useState(false);
 
@@ -21,19 +21,16 @@ function LoginPage() {
         register,
         handleSubmit,
         formState: { errors },
-        reset,
     } = useForm();
     const onSubmit = (data) => {
         login(data)
             .unwrap()
             .then((res) => {
-                console.log(res);
                 dispatch(setAuthUser(res));
                 toast.success("Logged in successfully");
                 navigate("/");
             })
             .catch((err) => {
-                console.log(err);
                 toast.error(err.data.message);
             });
     };

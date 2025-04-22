@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { useSignupMutation } from "../Redux/Services/auth/authApi";
 import { MessageSquare, User, Mail, Lock, Eye, EyeOff, Loader, Loader2 } from "lucide-react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link, redirect } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import AuthImagePattern from "../components/AuthImagePattern";
 import toast from "react-hot-toast";
 import { setIsSigningUp } from "../Redux/Services/auth/authSlice";
@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 function SignupPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isSigningUp } = useSelector((state) => state.auth);
     const [signup, { isLoading }] = useSignupMutation();
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
@@ -51,8 +50,7 @@ function SignupPage() {
 
             signup(formattedData)
                 .unwrap()
-                .then((res) => {
-                    console.log("Signup successful:", res);
+                .then(() => {
                     toast.success("Account created successfully!");
                     dispatch(setIsSigningUp(true));
                     formData.fullName = "";

@@ -4,7 +4,7 @@ import baseQueryWithInterceptor from "../../../utils/interceptor";
 export const authApi = createApi({
     reducerPath: "authApi",
     baseQuery: baseQueryWithInterceptor,
-    tagTypes: ["User", "Users"],
+    tagTypes: ["User", "Users", "Messages"],
     endpoints: (builder) => ({
         signup: builder.mutation({
             query: (body) => ({
@@ -34,12 +34,26 @@ export const authApi = createApi({
                 method: "PUT",
                 body: profilePic,
             }),
-            invalidatesTags: (result, error, arg) => [{ type: "User", id: arg.id }],
+            invalidatesTags: (result, error, arg) => [
+                { type: "User", id: arg.id },
+                "Users"
+            ],
+            async onQueryStarted(args, { dispatch, queryFulfilled }) {
+                try {
+                    const { data } = await queryFulfilled;
+                    // تحديث مباشر للـ cache
+                    dispatch(
+                        authApi.util.updateQueryData('checkAuth', undefined, (draft) => {
+                            Object.assign(draft, data);
+                        })
+                    );
+                } catch (error) {
+                    console.error(error);
+                }
+            }
         }),
         checkAuth: builder.query({
             query: () => "/auth/check",
-            refetchOnMountOrArgChange: true,
-            refetchOnFocus: true,
             refetchOnReconnect: true,
         }),
         getAllUsers: builder.query({

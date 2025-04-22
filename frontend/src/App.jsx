@@ -11,9 +11,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAuthUser } from "./Redux/Services/auth/authSlice";
 import {Toaster} from "react-hot-toast"
 import { useEffect } from "react";
+import SocketManager from "./components/SocketManager";
 
 function App() {
-    const { authUser, isCheckingAuth, isLoggingIn, isSigningUp } = useSelector((state) => state.auth);
+    const { authUser, isCheckingAuth } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const { theme } = useSelector((state) => state.theme);
     const { data, isLoading, isError } = useCheckAuthQuery();
@@ -33,6 +34,9 @@ function App() {
     return (
         <div data-theme={theme}>
             <Navbar />
+            
+            {/* Socket manager to handle socket connection */}
+            {authUser && <SocketManager />}
 
             <Routes>
                 <Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />
