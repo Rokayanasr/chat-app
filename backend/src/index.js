@@ -16,7 +16,7 @@ app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
 app.use(
     cors({
-        origin: process.env.FRONTEND_URL,
+        origin: [process.env.FRONTEND_URL, process.env.FRONTEND_URL2],
         credentials: true,
     })
 );

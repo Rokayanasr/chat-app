@@ -1,14 +1,14 @@
 import React, { useRef, useState } from "react";
 import { useSendMessageMutation } from "../Redux/Services/messages/messagesApi";
-import { Image, Send, X } from "lucide-react";
+import { Image, Loader, Send, X } from "lucide-react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 function MessageInput() {
-    const {selectedUser} = useSelector((state) => state.messages);
+    const { selectedUser } = useSelector((state) => state.messages);
     const [text, setText] = useState("");
     const [imagePreview, setImagePreview] = useState(null);
     const fileInputRef = useRef(null);
-    const [sendMessage, {isLoading, error}] = useSendMessageMutation();
+    const [sendMessage, { isLoading }] = useSendMessageMutation();
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -35,29 +35,28 @@ function MessageInput() {
 
         try {
             sendMessage({
-                id: selectedUser._id, 
+                id: selectedUser._id,
                 message: {
-                    text, 
-                    image: imagePreview
-                }
-            }).unwrap()
-            .then(() => {
-                setText("");
-                setImagePreview(null);
-                if (fileInputRef.current) fileInputRef.current.value = "";
+                    text,
+                    image: imagePreview,
+                },
             })
-            .catch((error) => {
-                console.error("Failed to send message", error);
-                toast.error("Failed to send message. Please try again.");
-            });
+                .unwrap()
+                .then(() => {
+                    setText("");
+                    setImagePreview(null);
+                    if (fileInputRef.current) fileInputRef.current.value = "";
+                })
+                .catch((error) => {
+                    console.error("Failed to send message", error);
+                    toast.error("Failed to send message. Please try again.");
+                });
         } catch (error) {
             console.error("Failed to send message", error);
             toast.error("Failed to send message. Please try again.");
         }
     };
 
-    const handleImageSelect = () => {};
-    
     return (
         <div className='p-4 w-full'>
             {imagePreview && (
@@ -83,17 +82,17 @@ function MessageInput() {
                         className='w-full input input-bordered rounded-lg input-sm sm:input-md'
                         value={text}
                         onChange={(e) => setText(e.target.value)}
-                    />        
+                    />
                     <button
                         type='button'
                         className={`hidden sm:flex btn btn-circle ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
                         onClick={() => fileInputRef.current?.click()}>
                         <Image size={20} />
-                        <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleImageChange} />
+                        <input type='file' accept='image/*' className='hidden' ref={fileInputRef} onChange={handleImageChange} />
                     </button>
                 </div>
                 <button type='submit' className='btn btn-primary btn-sm sm:btn-md'>
-                    <Send size={22} />
+                    {isLoading ? <Loader className='animate-spin' size={22} /> : <Send size={22} />}
                 </button>
             </form>
         </div>
