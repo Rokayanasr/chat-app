@@ -2,7 +2,7 @@ import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { redirect } from "react-router-dom";
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_MODE === "development" ? import.meta.env.VITE_DEV_URL : import.meta.env.VITE_PROD_URL,
+    baseUrl: import.meta.env.MODE === "development" ? "http://localhost:5001/api" : "/api",
     credentials: "include", // This will include cookies in the request
     prepareHeaders: (headers) => {
         return headers;
