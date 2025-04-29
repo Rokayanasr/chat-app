@@ -9,9 +9,11 @@ export const connectSocket = (userId) => {
         disconnectSocket();
     }
 
-    const SOCKET_URL = import.meta.env.MODE === "development" 
-        ? "http://localhost:5001" 
-        : "https://chatty-yhn5.onrender.com";
+    const SOCKET_URL = import.meta.env.MODE === "development"
+        ? "http://localhost:5001"
+        : window.location.origin;
+
+    console.log("SOCKET_URL", SOCKET_URL);
     
     socket = io(SOCKET_URL, {
         query: { userId: userId },
