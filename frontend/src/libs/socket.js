@@ -9,14 +9,19 @@ export const connectSocket = (userId) => {
         disconnectSocket();
     }
 
-    socket = io("http://localhost:5001", {
+    const SOCKET_URL = import.meta.env.MODE === "development" 
+        ? "http://localhost:5001" 
+        : "https://chatty-yhn5.onrender.com";
+    
+    socket = io(SOCKET_URL, {
         query: { userId: userId },
+        withCredentials: true
     });
 
     socket.connect();
 
     socket.on("connect", () => {
-        // console.log("socket connected", socket);
+        console.log("Socket connected successfully");
     });
 
     return socket;
