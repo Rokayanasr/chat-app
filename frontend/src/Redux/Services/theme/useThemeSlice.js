@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    theme: localStorage.getItem("chat-theme") || "nord",
+    theme: localStorage.getItem("chat-theme") || "night",
 };
 
 const themeSlice = createSlice({
