@@ -9,9 +9,10 @@ import Navbar from "./components/Navbar";
 import { useCheckAuthQuery } from "./Redux/Services/auth/authApi";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthUser } from "./Redux/Services/auth/authSlice";
-import {Toaster} from "react-hot-toast"
+import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import SocketManager from "./components/SocketManager";
+import Footer from "./components/Footer";
 
 function App() {
     const { authUser, isCheckingAuth } = useSelector((state) => state.auth);
@@ -34,7 +35,7 @@ function App() {
     return (
         <div data-theme={theme}>
             <Navbar />
-            
+
             {/* Socket manager to handle socket connection */}
             {authUser && <SocketManager />}
 
@@ -47,8 +48,10 @@ function App() {
             </Routes>
 
             <Toaster />
+            <Footer />
         </div>
     );
 }
 
 export default App;
+
