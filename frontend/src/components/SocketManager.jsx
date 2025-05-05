@@ -8,7 +8,7 @@ function SocketManager() {
     const dispatch = useDispatch();
     const authUser = useSelector((state) => state.auth.authUser);
     const { messages, selectedUser } = useSelector((state) => state.messages);
-    const onlineUsers = useSelector((state) => state.messages.onlineUsers);
+    // const onlineUsers = useSelector((state) => state.messages.onlineUsers);
 
     // First useEffect - handle socket connection
     useEffect(() => {
@@ -47,7 +47,7 @@ function SocketManager() {
         }
     }, [dispatch, messages, selectedUser]);
 
-    console.log("onlineUsers", onlineUsers);
+    // console.log("onlineUsers", onlineUsers);
     // This component doesn't render anything
     return null;
 }
